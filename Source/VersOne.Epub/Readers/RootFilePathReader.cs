@@ -8,7 +8,7 @@ using VersOne.Epub.Internal;
 namespace VersOne.Epub.Readers {
     internal static class RootFilePathReader {
 
-        public static async Task<string> GetRootFilePathAsync(ZipArchive epubArchive) {
+        public static string GetRootFilePath(ZipArchive epubArchive) {
             const string EPUB_CONTAINER_FILE_PATH = "META-INF/container.xml";
             ZipArchiveEntry containerFileEntry = epubArchive.GetEntry(EPUB_CONTAINER_FILE_PATH);
             if (containerFileEntry == null) {
@@ -17,7 +17,7 @@ namespace VersOne.Epub.Readers {
 
             XDocument containerDocument;
             using (Stream containerStream = containerFileEntry.Open()) {
-                containerDocument = await XmlUtils.LoadDocumentAsync(containerStream).ConfigureAwait(false);
+                containerDocument = XmlUtils.LoadDocument(containerStream);
             }
 
             XNamespace cnsNamespace = "urn:oasis:names:tc:opendocument:xmlns:container";

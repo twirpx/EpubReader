@@ -20,28 +20,22 @@ namespace VersOne.Epub {
         public string ContentMimeType { get; set; }
 
         public byte[] ReadContentAsBytes() {
-            return ReadContentAsBytesAsync().Result;
-        }
-
-        public async Task<byte[]> ReadContentAsBytesAsync() {
             ZipArchiveEntry contentFileEntry = GetContentFileEntry();
             byte[] content = new byte[(int)contentFileEntry.Length];
-            using (Stream contentStream = OpenContentStream(contentFileEntry))
-            using (MemoryStream memoryStream = new MemoryStream(content)) {
-                await contentStream.CopyToAsync(memoryStream).ConfigureAwait(false);
+            using (Stream contentStream = OpenContentStream(contentFileEntry)) {
+                using (MemoryStream memoryStream = new MemoryStream(content)) {
+                    contentStream.CopyTo(memoryStream);
+                }
             }
 
             return content;
         }
 
         public string ReadContentAsText() {
-            return ReadContentAsTextAsync().Result;
-        }
-
-        public async Task<string> ReadContentAsTextAsync() {
-            using (Stream contentStream = GetContentStream())
-            using (StreamReader streamReader = new StreamReader(contentStream)) {
-                return await streamReader.ReadToEndAsync().ConfigureAwait(false);
+            using (Stream contentStream = GetContentStream()) {
+                using (StreamReader streamReader = new StreamReader(contentStream)) {
+                    return streamReader.ReadToEnd();
+                }
             }
         }
 

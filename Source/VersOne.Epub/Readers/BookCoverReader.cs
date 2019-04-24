@@ -8,7 +8,7 @@ using VersOne.Epub.Schema;
 namespace VersOne.Epub.Readers {
     internal static class BookCoverReader {
 
-        public static async Task<byte[]> ReadBookCoverAsync(EpubBookRef bookRef) {
+        public static byte[] ReadBookCover(EpubBookRef bookRef) {
             List<EpubMetadataMeta> metaItems = bookRef.Schema.Package.Metadata.MetaItems;
             if (metaItems == null || !metaItems.Any()) {
                 return null;
@@ -36,8 +36,7 @@ namespace VersOne.Epub.Readers {
                 return null;
             }
 
-            byte[] coverImageContent = await coverImageContentFileRef.ReadContentAsBytesAsync().ConfigureAwait(false);
-            return coverImageContent;
+            return coverImageContentFileRef.ReadContentAsBytes();
         }
 
     }

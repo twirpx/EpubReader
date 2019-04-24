@@ -33,27 +33,15 @@ namespace VersOne.Epub {
         internal ZipArchive EpubArchive { get; private set; }
 
         public byte[] ReadCover() {
-            return ReadCoverAsync().Result;
-        }
-
-        public async Task<byte[]> ReadCoverAsync() {
-            return await BookCoverReader.ReadBookCoverAsync(this).ConfigureAwait(false);
+            return BookCoverReader.ReadBookCover(this);
         }
 
         public List<EpubTextContentFileRef> GetReadingOrder() {
-            return GetReadingOrderAsync().Result;
-        }
-
-        public async Task<List<EpubTextContentFileRef>> GetReadingOrderAsync() {
-            return await Task.Run(() => SpineReader.GetReadingOrder(this)).ConfigureAwait(false);
+            return SpineReader.GetReadingOrder(this);
         }
 
         public List<EpubNavigationItemRef> GetNavigation() {
-            return GetNavigationAsync().Result;
-        }
-
-        public async Task<List<EpubNavigationItemRef>> GetNavigationAsync() {
-            return await Task.Run(() => NavigationReader.GetNavigationItems(this)).ConfigureAwait(false);
+            return NavigationReader.GetNavigationItems(this);
         }
 
         public void Dispose() {

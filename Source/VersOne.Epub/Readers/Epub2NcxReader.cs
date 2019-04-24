@@ -11,7 +11,7 @@ using VersOne.Epub.Schema;
 namespace VersOne.Epub.Readers {
     internal static class Epub2NcxReader {
 
-        public static async Task<Epub2Ncx> ReadEpub2NcxAsync(ZipArchive epubArchive, string contentDirectoryPath, EpubPackage package) {
+        public static Epub2Ncx ReadEpub2Ncx(ZipArchive epubArchive, string contentDirectoryPath, EpubPackage package) {
             Epub2Ncx result = new Epub2Ncx();
             string tocId = package.Spine.Toc;
             if (String.IsNullOrEmpty(tocId)) {
@@ -35,7 +35,7 @@ namespace VersOne.Epub.Readers {
 
             XDocument containerDocument;
             using (Stream containerStream = tocFileEntry.Open()) {
-                containerDocument = await XmlUtils.LoadDocumentAsync(containerStream).ConfigureAwait(false);
+                containerDocument = XmlUtils.LoadDocument(containerStream);
             }
 
             XNamespace ncxNamespace = "http://www.daisy.org/z3986/2005/ncx/";

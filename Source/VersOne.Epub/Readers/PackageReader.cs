@@ -10,7 +10,7 @@ using VersOne.Epub.Schema;
 namespace VersOne.Epub.Readers {
     internal static class PackageReader {
 
-        public static async Task<EpubPackage> ReadPackageAsync(ZipArchive epubArchive, string rootFilePath) {
+        public static EpubPackage ReadPackage(ZipArchive epubArchive, string rootFilePath) {
             ZipArchiveEntry rootFileEntry = epubArchive.GetEntry(rootFilePath);
             if (rootFileEntry == null) {
                 throw new Exception("EPUB parsing error: root file not found in archive.");
@@ -18,7 +18,7 @@ namespace VersOne.Epub.Readers {
 
             XDocument containerDocument;
             using (Stream containerStream = rootFileEntry.Open()) {
-                containerDocument = await XmlUtils.LoadDocumentAsync(containerStream).ConfigureAwait(false);
+                containerDocument = XmlUtils.LoadDocument(containerStream);
             }
 
             XNamespace opfNamespace = "http://www.idpf.org/2007/opf";

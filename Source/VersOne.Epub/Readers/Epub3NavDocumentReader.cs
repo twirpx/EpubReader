@@ -11,7 +11,7 @@ using VersOne.Epub.Schema;
 namespace VersOne.Epub.Readers {
     internal static class Epub3NavDocumentReader {
 
-        public static async Task<Epub3NavDocument> ReadEpub3NavDocumentAsync(ZipArchive epubArchive, string contentDirectoryPath, EpubPackage package) {
+        public static Epub3NavDocument ReadEpub3NavDocument(ZipArchive epubArchive, string contentDirectoryPath, EpubPackage package) {
             Epub3NavDocument result = new Epub3NavDocument();
             EpubManifestItem navManifestItem =
                 package.Manifest.FirstOrDefault(item => item.Properties != null && item.Properties.Contains(ManifestProperty.NAV));
@@ -35,7 +35,7 @@ namespace VersOne.Epub.Readers {
 
             XDocument navDocument;
             using (Stream containerStream = navFileEntry.Open()) {
-                navDocument = await XmlUtils.LoadDocumentAsync(containerStream).ConfigureAwait(false);
+                navDocument = XmlUtils.LoadDocument(containerStream);
             }
 
             XNamespace xhtmlNamespace = navDocument.Root.Name.Namespace;

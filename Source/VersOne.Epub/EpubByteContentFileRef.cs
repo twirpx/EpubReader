@@ -11,9 +11,5 @@ namespace VersOne.Epub {
             return ReadContentAsBytes();
         }
 
-        public Task<byte[]> ReadContentAsync() {
-            return ReadContentAsBytesAsync();
-        }
-
     }
 }
