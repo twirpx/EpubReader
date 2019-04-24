@@ -1,13 +1,12 @@
 ﻿using System.IO.Compression;
 using System.Threading.Tasks;
+using VersOne.Epub.Internal;
 using VersOne.Epub.Schema;
 
-namespace VersOne.Epub.Internal
-{
-    internal static class SchemaReader
-    {
-        public static async Task<EpubSchema> ReadSchemaAsync(ZipArchive epubArchive)
-        {
+namespace VersOne.Epub.Readers {
+    internal static class SchemaReader {
+
+        public static async Task<EpubSchema> ReadSchemaAsync(ZipArchive epubArchive) {
             EpubSchema result = new EpubSchema();
             string rootFilePath = await RootFilePathReader.GetRootFilePathAsync(epubArchive).ConfigureAwait(false);
             string contentDirectoryPath = ZipPathUtils.GetDirectoryPath(rootFilePath);
@@ -18,5 +17,6 @@ namespace VersOne.Epub.Internal
             result.Epub3NavDocument = await Epub3NavDocumentReader.ReadEpub3NavDocumentAsync(epubArchive, contentDirectoryPath, package).ConfigureAwait(false);
             return result;
         }
+
     }
 }

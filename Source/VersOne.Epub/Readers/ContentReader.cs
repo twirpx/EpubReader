@@ -1,27 +1,22 @@
 ﻿using System.Collections.Generic;
 using VersOne.Epub.Schema;
 
-namespace VersOne.Epub.Internal
-{
-    internal static class ContentReader
-    {
-        public static EpubContentRef ParseContentMap(EpubBookRef bookRef)
-        {
-            EpubContentRef result = new EpubContentRef
-            {
+namespace VersOne.Epub.Readers {
+    internal static class ContentReader {
+
+        public static EpubContentRef ParseContentMap(EpubBookRef bookRef) {
+            EpubContentRef result = new EpubContentRef {
                 Html = new Dictionary<string, EpubTextContentFileRef>(),
                 Css = new Dictionary<string, EpubTextContentFileRef>(),
                 Images = new Dictionary<string, EpubByteContentFileRef>(),
                 Fonts = new Dictionary<string, EpubByteContentFileRef>(),
                 AllFiles = new Dictionary<string, EpubContentFileRef>()
             };
-            foreach (EpubManifestItem manifestItem in bookRef.Schema.Package.Manifest)
-            {
+            foreach (EpubManifestItem manifestItem in bookRef.Schema.Package.Manifest) {
                 string fileName = manifestItem.Href;
                 string contentMimeType = manifestItem.MediaType;
                 EpubContentType contentType = GetContentTypeByContentMimeType(contentMimeType);
-                switch (contentType)
-                {
+                switch (contentType) {
                     case EpubContentType.XHTML_1_1:
                     case EpubContentType.CSS:
                     case EpubContentType.OEB1_DOCUMENT:
@@ -29,14 +24,12 @@ namespace VersOne.Epub.Internal
                     case EpubContentType.XML:
                     case EpubContentType.DTBOOK:
                     case EpubContentType.DTBOOK_NCX:
-                        EpubTextContentFileRef epubTextContentFile = new EpubTextContentFileRef(bookRef)
-                        {
+                        EpubTextContentFileRef epubTextContentFile = new EpubTextContentFileRef(bookRef) {
                             FileName = fileName,
                             ContentMimeType = contentMimeType,
                             ContentType = contentType
                         };
-                        switch (contentType)
-                        {
+                        switch (contentType) {
                             case EpubContentType.XHTML_1_1:
                                 result.Html[fileName] = epubTextContentFile;
                                 break;
@@ -44,17 +37,16 @@ namespace VersOne.Epub.Internal
                                 result.Css[fileName] = epubTextContentFile;
                                 break;
                         }
+
                         result.AllFiles[fileName] = epubTextContentFile;
                         break;
                     default:
-                        EpubByteContentFileRef epubByteContentFile = new EpubByteContentFileRef(bookRef)
-                        {
+                        EpubByteContentFileRef epubByteContentFile = new EpubByteContentFileRef(bookRef) {
                             FileName = fileName,
                             ContentMimeType = contentMimeType,
                             ContentType = contentType
                         };
-                        switch (contentType)
-                        {
+                        switch (contentType) {
                             case EpubContentType.IMAGE_GIF:
                             case EpubContentType.IMAGE_JPEG:
                             case EpubContentType.IMAGE_PNG:
@@ -66,17 +58,17 @@ namespace VersOne.Epub.Internal
                                 result.Fonts[fileName] = epubByteContentFile;
                                 break;
                         }
+
                         result.AllFiles[fileName] = epubByteContentFile;
                         break;
                 }
             }
+
             return result;
         }
 
-        private static EpubContentType GetContentTypeByContentMimeType(string contentMimeType)
-        {
-            switch (contentMimeType.ToLowerInvariant())
-            {
+        private static EpubContentType GetContentTypeByContentMimeType(string contentMimeType) {
+            switch (contentMimeType.ToLowerInvariant()) {
                 case "application/xhtml+xml":
                     return EpubContentType.XHTML_1_1;
                 case "application/x-dtbook+xml":
@@ -109,5 +101,6 @@ namespace VersOne.Epub.Internal
                     return EpubContentType.OTHER;
             }
         }
+
     }
 }

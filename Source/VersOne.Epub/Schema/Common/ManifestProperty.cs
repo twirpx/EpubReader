@@ -1,22 +1,26 @@
-﻿namespace VersOne.Epub.Schema
-{
-    public enum ManifestProperty
-    {
+﻿namespace VersOne.Epub.Schema {
+    public enum ManifestProperty {
+
         COVER_IMAGE = 1,
+
         MATHML,
+
         NAV,
+
         REMOTE_RESOURCES,
+
         SCRIPTED,
+
         SVG,
+
         UNKNOWN
+
     }
 
-    internal static class ManifestPropertyParser
-    {
-        public static ManifestProperty Parse(string stringValue)
-        {
-            switch (stringValue.ToLowerInvariant())
-            {
+    internal static class ManifestPropertyParser {
+
+        public static ManifestProperty Parse(string stringValue) {
+            switch (stringValue.ToLowerInvariant()) {
                 case "cover-image":
                     return ManifestProperty.COVER_IMAGE;
                 case "mathml":
@@ -33,5 +37,6 @@
                     return ManifestProperty.UNKNOWN;
             }
         }
+
     }
 }

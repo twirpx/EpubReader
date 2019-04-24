@@ -1,24 +1,16 @@
-﻿namespace VersOne.Epub.Internal
-{
-    internal class UrlParser
-    {
-        public UrlParser(string url)
-        {
-            if (url == null)
-            {
+﻿namespace VersOne.Epub.Internal {
+    internal class UrlParser {
+
+        public UrlParser(string url) {
+            if (url == null) {
                 Path = null;
                 Anchor = null;
-            }
-            else
-            {
+            } else {
                 int anchorCharIndex = url.IndexOf('#');
-                if (anchorCharIndex == -1)
-                {
+                if (anchorCharIndex == -1) {
                     Path = url;
                     Anchor = null;
-                }
-                else
-                {
+                } else {
                     Path = url.Substring(0, anchorCharIndex);
                     Anchor = url.Substring(anchorCharIndex + 1);
                 }
@@ -26,6 +18,8 @@
         }
 
         public string Path { get; }
+
         public string Anchor { get; }
+
     }
 }

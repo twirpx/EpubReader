@@ -2,22 +2,18 @@
 using System.Reflection;
 using VersOne.Epub.Schema;
 
-namespace VersOne.Epub.Internal
-{
-    internal static class VersionUtils
-    {
-        public static string GetVersionString(EpubVersion epubVersion)
-        {
+namespace VersOne.Epub.Internal {
+    internal static class VersionUtils {
+
+        public static string GetVersionString(EpubVersion epubVersion) {
             Type epubVersionType = typeof(EpubVersion);
             FieldInfo fieldInfo = epubVersionType.GetRuntimeField(epubVersion.ToString());
-            if (fieldInfo != null)
-            {
+            if (fieldInfo != null) {
                 return fieldInfo.GetCustomAttribute<VersionStringAttribute>().Version;
-            }
-            else
-            {
+            } else {
                 return epubVersion.ToString();
             }
         }
+
     }
 }

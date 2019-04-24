@@ -1,8 +1,7 @@
 ﻿using System.Collections.Generic;
 
-namespace VersOne.Epub.Schema
-{
-    public class Epub2NcxPageList : List<Epub2NcxPageTarget>
-    {
+namespace VersOne.Epub.Schema {
+    public class Epub2NcxPageList : List<Epub2NcxPageTarget> {
+
     }
 }

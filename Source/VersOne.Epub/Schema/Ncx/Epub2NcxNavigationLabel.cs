@@ -1,12 +1,11 @@
-﻿namespace VersOne.Epub.Schema
-{
-    public class Epub2NcxNavigationLabel
-    {
+﻿namespace VersOne.Epub.Schema {
+    public class Epub2NcxNavigationLabel {
+
         public string Text { get; set; }
 
-        public override string ToString()
-        {
+        public override string ToString() {
             return Text;
         }
+
     }
 }
