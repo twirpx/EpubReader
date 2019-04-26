@@ -1,6 +1,4 @@
-﻿using System.Threading.Tasks;
-
-namespace VersOne.Epub {
+﻿namespace VersOne.Epub {
     public class EpubByteContentFileRef : EpubContentFileRef {
 
         public EpubByteContentFileRef(EpubBookRef epubBookRef)

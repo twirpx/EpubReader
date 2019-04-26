@@ -1,7 +1,6 @@
 ﻿using System;
 using System.IO;
 using System.IO.Compression;
-using System.Threading.Tasks;
 using VersOne.Epub.Internal;
 
 namespace VersOne.Epub {

@@ -1,5 +1,4 @@
 ﻿using System.IO.Compression;
-using System.Threading.Tasks;
 using VersOne.Epub.Internal;
 using VersOne.Epub.Schema;
 
